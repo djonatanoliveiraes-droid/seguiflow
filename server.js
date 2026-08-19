@@ -14,7 +14,10 @@ const PORT = process.env.PORT || 3000;
 const JWT_SECRET = process.env.JWT_SECRET || 'seguiflow_secret_2026';
 
 app.use(cors());
-app.use(express.json());
+app.use((req, res, next) => {
+  if (req.originalUrl === '/api/webhook/stripe') return next();
+  express.json()(req, res, next);
+});
 app.use(express.static(path.join(__dirname, 'public')));
 
 // ─── MIDDLEWARE AUTH ─────────────────────────────────────────────────────────
