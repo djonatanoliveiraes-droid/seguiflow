@@ -1,7 +1,8 @@
 const Database = require('better-sqlite3');
 const path = require('path');
 
-const db = new Database(path.join(__dirname, 'seguiflow.db'));
+const dbPath = process.env.DB_PATH || path.join(__dirname, 'seguiflow.db');
+const db = new Database(dbPath);
 
 // Habilitar WAL mode para melhor performance
 db.pragma('journal_mode = WAL');
